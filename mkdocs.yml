@@ -1,0 +1,8 @@
+site_name: MkDocs Versions
+
+theme: readthedocs
+
+markdown_extensions:
+    - toc:
+        permalink: ""
+    - admonition:
