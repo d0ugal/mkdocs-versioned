@@ -27,14 +27,14 @@ if sys.argv[-1] == 'publish':
     os.system("twine upload dist/*")
     print("You probably want to also tag the version now:")
     print("  git tag -a {0} -m 'version {0}'".format(
-        get_version("mkdocs_versions")))
+        get_version("mkdocs_versioned")))
     print("  git push --tags")
     sys.exit()
 
 
 setup(
-    name="mkdocs-versions",
-    version=get_version("mkdocs_versions"),
+    name="mkdocs-versioned",
+    version=get_version("mkdocs_versioned"),
     url='http://www.mkdocs.org',
     license='BSD',
     description='Build multiple versions of MkDocs documentation',
@@ -49,7 +49,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'mkdocs_versions = mkdocs_versions.cli:build_command',
+            'mkdocs_versioned = mkdocs_versioned.cli:build_command',
         ],
     },
     classifiers=[

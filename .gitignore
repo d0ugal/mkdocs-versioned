@@ -3,6 +3,6 @@ env/
 dist/
 htmlcov/
 .tox/
-mkdocs_versions.egg-info/
+mkdocs_versioned.egg-info/
 *.pyc
 .coverage
