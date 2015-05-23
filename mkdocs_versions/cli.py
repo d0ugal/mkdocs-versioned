@@ -9,6 +9,15 @@ from mkdocs import build, cli, config
 log = logging.getLogger('mkdocs.cli')
 
 
+def _build(cfg, pathspec, output):
+
+    try:
+        cfg.load_dict({'site_dir': output})
+        build.build(cfg, clean_site_dir=True)
+    except Exception:
+        log.exception("Failed to build '%s'", pathspec)
+
+
 @click.command()
 @click.option('--config-file', type=click.File('rb'), help=cli.config_file_help)
 @click.option('--strict', is_flag=True, help=cli.strict_help)
@@ -23,8 +32,6 @@ def build_command(config_file, strict, site_dir, tags, default, latest):
 
     g = Git()
     tags = tags or g.tag().splitlines()
-    g.checkout(default)
-    clean = True
 
     cfg = config.load_config(
         config_file=config_file,
@@ -34,27 +41,24 @@ def build_command(config_file, strict, site_dir, tags, default, latest):
 
     initial_site_dir = cfg['site_dir']
 
-    log.info("Building branch %s to %s", default, initial_site_dir)
+    log.info("Building %s to /", default)
+    g.checkout(default)
+    _build(cfg, default, initial_site_dir)
 
-    try:
-        build.build(cfg, clean_site_dir=clean)
-    except Exception:
-        log.exception("Failed to build branch %s", default)
+    log.info("Building %s to /latest", latest)
+    g.checkout(default)
+    _build(cfg, latest, os.path.join(initial_site_dir, 'latest'))
 
-    for tag in tags:
+    for tag in sorted(tags):
+
         g.checkout(tag)
 
         if not os.path.exists("mkdocs.yml"):
-            log.warning(
-                "Unable to build branch %s, as no mkdocs.yml was found", tag)
+            log.warning("Unable to build %s, as no mkdocs.yml was found", tag)
             continue
 
-        output = os.path.join(initial_site_dir, "v{0}".format(tag))
-        log.info("Building branch %s to %s", tag, output)
-        cfg.load_dict({'site_dir': output})
-        try:
-            build.build(cfg, clean_site_dir=clean)
-        except Exception:
-            log.exception("Failed to build branch %s", tag)
+        out = "v{0}".format(tag)
+        log.info("Building %s to /%s", tag, out)
+        _build(cfg, tag, os.path.join(initial_site_dir, out))
 
-    git.checkout('master')
+    g.checkout('master')
