@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MkDocs Versions</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> MkDocs Versions</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Home</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#mkdocs-versioned">MkDocs Versioned</a></li>
+                
+                    <li><a class="toctree-l4" href="#usage">Usage</a></li>
+                
+                    <li><a class="toctree-l4" href="#todo">TODO</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">MkDocs Versions</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="mkdocs-versioned">MkDocs Versioned<a class="headerlink" href="#mkdocs-versioned" title="Permanent link"></a></h1>
+<p>The <code>mkdocs-versioned</code> project adds the ability to build multiple versions of
+MkDocs documentation projects. This is a popular requirement, if, for example
+you want to set both development docs and those for the stable release. Or, you
+may still support an old release and have users using it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This work is experimental and should be viewed as a very early alpha, that
+sortof works.</p>
+</div>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"></a></h2>
+<p>Simply install with pip, <code>pip install mkdocs-versioned</code> and then use the command
+<code>mkdocs_versioned</code>. This command is similar to <code>mkdocs build</code>, view the <code>--help</code>
+output to see some of the configuration options.</p>
+<p>By default, it will attempt to build all versions, and it will build the latest
+docs to both / and /latest. To show a specific version at the root, use
+<code>mkdocs_versioned --default=0.13.0</code>. Replacing 0.13.0 with the version you want
+to use.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For mkdocs-versioned to work, it assumes that each of the branches can be
+built with the installed version of Mkdocs.</p>
+</div>
+<h2 id="todo">TODO<a class="headerlink" href="#todo" title="Permanent link"></a></h2>
+<ul>
+<li>
+<p>We currently use private mkdocs API's because there isn't a way to hook in
+yet. This work is partly helping in providing input on what hooks are needed
+for plugins to work well with MkDocs</p>
+</li>
+<li>
+<p>Provide a version switcher, like Django has. Currently the only way to switch
+version is by hacking the URL and knowing what to look for.</p>
+</li>
+<li>
+<p>Build each version to a tmp directory and then move it over. This helps us
+avoid the issue of docs having one version fail and being partly built</p>
+</li>
+<li>
+<p>How can we better handle changes in MkDocs config in different versions?
+For example, an old version of the docs may require an old MkDocs due to an
+old setting or maybe a out of date custom theme. I think we probably need to
+just say that the branch needs to be buildable with latest. If they want to
+render the docs, they should be happy enough doing minor updates to make sure
+it builds.</p>
+</li>
+<li>
+<p>Add plugin support upstream in MkDocs. We need the following entry points.</p>
+<ol>
+<li>A way to register extra commands, <code>mkdocs build-versioned</code> maybe?</li>
+<li>Something to add or modify the config being used. Possibly also adding
+   our own config options.
+3, A way to trigger the build multiple times.</li>
+</ol>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.13.0.dev
+Build Date UTC : 2015-05-23 14:07:15.332209
+-->
