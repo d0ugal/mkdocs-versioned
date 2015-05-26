@@ -45,9 +45,9 @@ avoid the issue of docs having one version fail and being partly built
 - How can we better handle changes in MkDocs config in different versions?
 For example, an old version of the docs may require an old MkDocs due to an
 old setting or maybe a out of date custom theme. I think we probably need to
-just say that the branch needs to be buildable with latest. If they want to
-render the docs, they should be happy enough doing minor updates to make sure
-it builds.
+just say that the branch needs to be buildable with the latest MkDocs. If they
+want to render the docs, they should be happy enough doing minor updates to
+make sure it builds old versions.
 
 - Add plugin support upstream in MkDocs. We need the following entry points.
 
