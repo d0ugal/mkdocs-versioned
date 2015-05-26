@@ -28,14 +28,18 @@ def _load_config(config_file, strict, site_dir):
 
 def _build(cfg, pathspec, tags, site_dir=None):
 
+    c = {
+        'extra': {
+            'current_version': pathspec,
+            'all_versions': tags,
+        }
+    }
+
+    if site_dir is not None:
+        c['site_dir'] = site_dir
+
     try:
-        cfg.load_dict({
-            'site_dir': site_dir,
-            'extra': {
-                'current_version': pathspec,
-                'all_versions': tags,
-            }
-        })
+        cfg.load_dict(c)
         build.build(cfg, clean_site_dir=True)
     except Exception:
         log.exception("Failed to build '%s'", pathspec)
