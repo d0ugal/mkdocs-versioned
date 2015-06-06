@@ -49,6 +49,9 @@ just say that the branch needs to be buildable with the latest MkDocs. If they
 want to render the docs, they should be happy enough doing minor updates to
 make sure it builds old versions.
 
+- Versioned URL's like /v1/ could clash with potential internationalisation
+URLs, so we may wan to try something like /en/v1/ etc.
+
 - Add plugin support upstream in MkDocs. We need the following entry points.
 
     1. A way to register extra commands, `mkdocs build-versioned` maybe?
