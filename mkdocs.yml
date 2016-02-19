@@ -1,6 +1,6 @@
 site_name: MkDocs Versions
 
-theme: readthedocs
+theme: material
 
 markdown_extensions:
     - toc:
